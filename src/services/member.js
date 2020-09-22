@@ -8,7 +8,7 @@ export function GET_members(token) {
       },
     })
     .then(res => {
-      console.log(res)
+      console.log(res.data,12)
       return res.data.data;
     })
     .catch(error => {
@@ -24,8 +24,8 @@ export function Delete_members(token,Account) {
       },
     })
     .then(res => {
-      console.log(res)
-      return res.message;
+      console.log(res,27)
+      return res.data.message;
     })
     .catch(error => {
       throw error;

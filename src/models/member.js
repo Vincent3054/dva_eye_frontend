@@ -1,12 +1,11 @@
-import { GET_members } from '../services/member';
+import { GET_members ,Delete_members} from '../services/member';
 const token = 'eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJBY2NvdW50IjoicGVycnkxMDA1IiwiUm9sZSI6IlAwMDMsUDAwNCxQMDA4LFAwMDksUDAxMCxQMDExLFAwMTIsUDAxMyxQMDE0LFAwMTUsUDAxNixQMDE3LFAwMTgsIiwiRXhwaXJlIjoiMjAyMC82LzEyIOS4i-WNiCAwNDozOTowNiJ9.spGtfM3kUl95Lc_aVlJtwHHYOL6HXYIn9CtD-q5pbhPRkdJAnsce4DfQBU9qGSZesNWCZRVqW1JHyRFcvsr8XA'
-const Account = 'admin003'
 
 export default {
   namespace: 'member',
 
   state: {
-    members: [],
+    //members: [],
   },
 
   effects: {
@@ -20,8 +19,8 @@ export default {
     },
     *Delete_members({ payload, callback, loading }, { put, call, select }) {
       try {
-        const response = yield call(GET_members, token, Account);
-        yield put({ type: 'SET_members', payload: response });
+        const response = yield call(Delete_members, token, payload);
+        yield put({ type: 'GET_members', payload: response });
       } catch (err) {
         console.log(err);
       }
@@ -40,6 +39,7 @@ export default {
       return {
         ...state,
         message: payload,
+        
       };
     },
   },
