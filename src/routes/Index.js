@@ -1,8 +1,9 @@
 import React, { Component } from "react";
+import Layout from '../layouts/layout';
 import { Link } from 'dva/router';
 import { connect } from 'dva';
-import { Table, Space,Modal,Button } from 'antd';
-import { DeleteTwoTone,EditTwoTone } from '@ant-design/icons';
+import { Table, Space, Modal, Button } from 'antd';
+import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 
 const mapStateToProps = state => {
   return {
@@ -13,8 +14,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    GET_members( callback, loading) {
-      dispatch({ type: 'member/GET_members',  callback, loading });
+    GET_members(callback, loading) {
+      dispatch({ type: 'member/GET_members', callback, loading });
     },
     Delete_members(payload, callback, loading) {
       dispatch({ type: 'member/Delete_members', payload, callback, loading });
@@ -38,18 +39,14 @@ export default connect(
       visible: false,
       confirmLoading: false,
     };
-    
+
     componentDidMount = () => {
       const { GET_members } = this.props;
-      GET_members(null, true); //開關loading畫面 
+      GET_members(null, true); //開關loading畫面
     }
-    onDelete = (Account) => {
-      const { Delete_members } = this.props;
-      Delete_members(Account,null, null,);
-    }
-    
     showModal = () => {
       this.setState({
+        ModalText: '確認要刪除資料嗎?',
         visible: true,
       });
     };
@@ -59,8 +56,9 @@ export default connect(
       });
     };
     handleOk = (Account) => {
+      const { Delete_members } = this.props;
       this.setState({
-        ModalText: '正在刪除'+Account+'會員資料',
+        ModalText: '正在刪除會員資料',
         confirmLoading: true,
       });
       setTimeout(() => {
@@ -68,7 +66,8 @@ export default connect(
           visible: false,
           confirmLoading: false,
         });
-      }, 2000);
+        Delete_members(Account, null, true,);
+      }, 1000);
     };
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
@@ -105,14 +104,13 @@ export default connect(
           key: 'action',
           //record 可以抓這欄的資料 ex {record.Account}
           render: (text, record) => (
-            <Space size="middle">    
-              <EditTwoTone />
-              <DeleteTwoTone onClick={() =>this.showModal}/>
+            <Space size="middle">
+              <Button type="primary" onClick={this.showModal}>修改</Button>
               <Button type="primary" onClick={this.showModal}>刪除</Button>
               <Modal
                 title="刪除"
                 visible={visible}
-                onOk={this.handleOk}
+                onOk={() => this.handleOk(record.Account)}
                 confirmLoading={confirmLoading}
                 onCancel={this.handleCancel}
               >
@@ -124,10 +122,12 @@ export default connect(
       ];
 
       return (
-        <div>
-          <Table columns={columns} dataSource={this.props.members} />
-          
-        </div>
+        <Layout>
+          <div>
+            <Table columns={columns} dataSource={this.props.members} />
+          </div>
+        </Layout>
+
       )
     }
   }
