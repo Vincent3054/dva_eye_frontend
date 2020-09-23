@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Layout from '../layouts/layout';
 import { Link } from 'dva/router';
 import { connect } from 'dva';
-import { Table, Space, Modal, Button } from 'antd';
+import { Form, Input, Select, Table, Space, Modal, Button, DatePicker } from 'antd';
 import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 
 const mapStateToProps = state => {
@@ -35,35 +35,46 @@ export default connect(
 )(
   class Index extends Component {
     state = {
-      ModalText: '確認要刪除資料嗎?',
-      visible: false,
+      ModalTextDelete: '確認要刪除會員資料嗎?',
+      visibleDelete: false,
+      visibleEdit: false,
       confirmLoading: false,
+      Name: "123",
     };
 
     componentDidMount = () => {
       const { GET_members } = this.props;
       GET_members(null, true); //開關loading畫面
     }
-    showModal = () => {
+    showModalEdit = (Account) => {
       this.setState({
-        ModalText: '確認要刪除資料嗎?',
-        visible: true,
+        visibleEdit: true,
       });
     };
-    handleCancel = () => {
+    showModalDelete = (Account) => {
       this.setState({
-        visible: false,
+        ModalTextDelete: '確認要刪除' + Account + '會員資料嗎?',
+        visibleDelete: true,
       });
     };
-    handleOk = (Account) => {
+    handleCancelEdit = () => {
+      this.setState({
+        visibleEdit: false,
+      });
+    };
+    handleCancelDelete = () => {
+      this.setState({
+        visibleDelete: false,
+      });
+    };
+    handleOkDelete = (Account) => {
       const { Delete_members } = this.props;
       this.setState({
-        ModalText: '正在刪除會員資料',
         confirmLoading: true,
       });
       setTimeout(() => {
         this.setState({
-          visible: false,
+          visibleDelete: false,
           confirmLoading: false,
         });
         Delete_members(Account, null, true,);
@@ -72,7 +83,30 @@ export default connect(
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
     render() {
-      const { visible, confirmLoading, ModalText } = this.state;
+      const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete, Name } = this.state;
+      const { Option } = Select;
+      const layout = {
+        labelCol: {
+          span: 6,
+        },
+        wrapperCol: {
+          span: 13,
+        },
+      };
+      const validateMessages = {
+        required: "${label} is required!",
+        types: {
+          email: '${label} is not validate email!',
+          number: '${label} is not a validate number!',
+        },
+        number: {
+          range: '${label} must be between ${min} and ${max}',
+        },
+      };
+      const onFinish = (values) => {
+        console.log(values);
+      };
+
       const columns = [
         {
           title: '帳號',
@@ -100,21 +134,83 @@ export default connect(
           key: 'BirthDate',
         },
         {
-          title: 'Action',
+          title: '功能',
           key: 'action',
           //record 可以抓這欄的資料 ex {record.Account}
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={this.showModal}>修改</Button>
-              <Button type="primary" onClick={this.showModal}>刪除</Button>
+              <Button type="primary" onClick={() => this.showModalEdit(record.Account)}>修改</Button>
+              <Button type="primary" onClick={() => this.showModalDelete(record.Account)}>刪除</Button>
+              <Modal
+                title="編輯"
+                visible={visibleEdit}
+                onOk={() => this.handleOkDelete(record.Account)}
+                onCancel={this.handleCancelEdit}
+                width={1000}
+                footer={[]}
+              >
+                <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                  <Form.Item
+                    name={['Name']}
+                    label="名子"
+                  >
+                    <Input  />
+                  </Form.Item>
+                  <Form.Item
+                    name={['Email']}
+                    label="信箱"
+                    rules={[
+                      {
+                        type: 'email',
+                      },
+                    ]}
+                  >
+                    <Input />
+                  </Form.Item>
+                  <Form.Item
+                    name={['Sex']}
+                    label="性別"
+                  >
+                    <Select
+                      placeholder="請選擇..."
+                      allowClear
+                    >
+                      <Option value="男">男</Option>
+                      <Option value="女">女</Option>
+                    </Select>
+                  </Form.Item>
+                  <Form.Item
+                    name={['BirthDate']}
+                    label="生日"
+                  >
+                    <DatePicker />
+                  </Form.Item>
+                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 16 }}>
+                    <Button key="back" onClick={this.handleCancelEdit}>
+                      返回
+                    </Button>
+                    <Button type="primary" htmlType="submit">
+                      修改
+                  </Button>
+                  </Form.Item>
+                </Form>
+              </Modal>
               <Modal
                 title="刪除"
-                visible={visible}
-                onOk={() => this.handleOk(record.Account)}
+                visible={visibleDelete}
+                onOk={() => this.handleOkDelete(record.Account)}
                 confirmLoading={confirmLoading}
-                onCancel={this.handleCancel}
+                onCancel={this.handleCancelDelete}
+                footer={[
+                  <Button key="back" onClick={this.handleCancelDelete}>
+                    返回
+                  </Button>,
+                  <Button key="submit" type="primary" loading={confirmLoading} onClick={() => this.handleOkDelete(record.Account)}>
+                    確認
+                  </Button>,
+                ]}
               >
-                <p>{ModalText}</p>
+                <p>{ModalTextDelete}</p>
               </Modal>
             </Space>
           ),
