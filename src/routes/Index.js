@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import Layout from '../layouts/layout';
-import { Link } from 'dva/router';
 import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, DatePicker } from 'antd';
-import { DeleteTwoTone, EditTwoTone } from '@ant-design/icons';
 
 const mapStateToProps = state => {
   return {
@@ -19,6 +17,9 @@ const mapDispatchToProps = dispatch => {
     },
     Delete_members(payload, callback, loading) {
       dispatch({ type: 'member/Delete_members', payload, callback, loading });
+    },
+    Edit_members(payload, callback, loading,data) {
+      dispatch({ type: 'member/Edit_members', payload, callback, loading,data });
     },
   };
 };
@@ -39,27 +40,17 @@ export default connect(
       visibleDelete: false,
       visibleEdit: false,
       confirmLoading: false,
-      Name: "123",
     };
 
     componentDidMount = () => {
       const { GET_members } = this.props;
       GET_members(null, true); //開關loading畫面
     }
-    showModalEdit = (Account) => {
-      this.setState({
-        visibleEdit: true,
-      });
-    };
+
     showModalDelete = (Account) => {
       this.setState({
         ModalTextDelete: '確認要刪除' + Account + '會員資料嗎?',
         visibleDelete: true,
-      });
-    };
-    handleCancelEdit = () => {
-      this.setState({
-        visibleEdit: false,
       });
     };
     handleCancelDelete = () => {
@@ -80,10 +71,34 @@ export default connect(
         Delete_members(Account, null, true,);
       }, 1000);
     };
+
+    showModalEdit = () => {
+      this.setState({
+        visibleEdit: true,
+      });
+    };
+    handleCancelEdit = () => {
+      this.setState({
+        visibleEdit: false,
+      });
+    };
+    handleOkEdit = (values,Account) => {
+      const { Edit_members } = this.props;
+      this.setState({
+        confirmLoading: true,
+      });
+      setTimeout(() => {
+        this.setState({
+          visibleEdit: false,
+          confirmLoading: false,
+        });
+        Edit_members(Account, null, true,values);
+      }, 1000);
+    };
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
     render() {
-      const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete, Name } = this.state;
+      const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete } = this.state;
       const { Option } = Select;
       const layout = {
         labelCol: {
@@ -149,7 +164,7 @@ export default connect(
                 width={1000}
                 footer={[]}
               >
-                <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+                <Form {...layout} name="nest-messages" onFinish={this.handleOkEdit} validateMessages={validateMessages}>
                   <Form.Item
                     name={['Name']}
                     label="名子"
