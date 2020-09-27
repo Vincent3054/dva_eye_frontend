@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Layout from '../layouts/layout';
 import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, DatePicker } from 'antd';
+import { values } from "lodash";
 
 const mapStateToProps = state => {
   return {
@@ -18,8 +19,8 @@ const mapDispatchToProps = dispatch => {
     Delete_members(payload, callback, loading) {
       dispatch({ type: 'member/Delete_members', payload, callback, loading });
     },
-    Edit_members(payload, callback, loading,data) {
-      dispatch({ type: 'member/Edit_members', payload, callback, loading,data });
+    Edit_members(payload, callback, loading, data) {
+      dispatch({ type: 'member/Edit_members', payload, callback, loading, data });
     },
   };
 };
@@ -40,6 +41,7 @@ export default connect(
       visibleDelete: false,
       visibleEdit: false,
       confirmLoading: false,
+      Account: "",
     };
 
     componentDidMount = () => {
@@ -72,17 +74,31 @@ export default connect(
       }, 1000);
     };
 
-    showModalEdit = () => {
+    showModalEdit = (Account, Name, Email, Sex, BirthDate) => {
       this.setState({
         visibleEdit: true,
+        Account: Account,
       });
+      //const { form } = this.props;
+      // //给form赋值
+      // const { getFieldValue } = this.props.form;
+      //this.props.form.setFieldsValue({
+      //  'Name': Name,
+      //     'Email': Email,
+      //     'Sex': Sex,
+      //     'BirthDate': BirthDate,
+      //  });
+      // this.formRef.current.setFieldsValue({
+      //   'Name': '123',
+      // });
     };
     handleCancelEdit = () => {
       this.setState({
         visibleEdit: false,
+        Account: "",
       });
     };
-    handleOkEdit = (values,Account) => {
+    handleOkEdit = (values, Account) => {
       const { Edit_members } = this.props;
       this.setState({
         confirmLoading: true,
@@ -92,7 +108,7 @@ export default connect(
           visibleEdit: false,
           confirmLoading: false,
         });
-        Edit_members(Account, null, true,values);
+        Edit_members(Account, null, true, values);
       }, 1000);
     };
     //antd裡面table組件 放東西進去
@@ -119,9 +135,9 @@ export default connect(
         },
       };
       const onFinish = (values) => {
-        console.log(values);
+        const { Account } = this.state;
+        this.handleOkEdit(values, Account)
       };
-
       const columns = [
         {
           title: '帳號',
@@ -159,17 +175,16 @@ export default connect(
               <Modal
                 title="編輯"
                 visible={visibleEdit}
-                onOk={() => this.handleOkDelete(record.Account)}
                 onCancel={this.handleCancelEdit}
                 width={1000}
                 footer={[]}
               >
-                <Form {...layout} name="nest-messages" onFinish={this.handleOkEdit} validateMessages={validateMessages}>
+                <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} ref={this.formRef} >
                   <Form.Item
                     name={['Name']}
                     label="名子"
                   >
-                    <Input  />
+                    <Input />
                   </Form.Item>
                   <Form.Item
                     name={['Email']}

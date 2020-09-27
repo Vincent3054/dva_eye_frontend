@@ -34,7 +34,7 @@ export function Delete_members(token,Account) {
 }
 export function Edit_members(token,Account,Data) {
   return axios
-    .delete(`${api_url}/Members/Edit/${Account} `,Data, {
+    .put(`${api_url}/Members/Edit/${Account} `,Data, {
       headers: {
         Authorization: token,
       },
