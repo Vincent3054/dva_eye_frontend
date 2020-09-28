@@ -46,5 +46,15 @@ export function Edit_members(token,Account,Data) {
     .catch(error => {
       throw error;
     });
-
+}
+export function Login_members(Data) {
+  return axios
+    .post(`${api_url}/Members/Login `,Data)
+    .then(res => {
+      console.log(res,42)
+      return res.data.data;
+    })
+    .catch(error => {
+      throw error;
+    });
 }

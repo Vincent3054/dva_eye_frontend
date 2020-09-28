@@ -98,19 +98,7 @@ export default connect(
         Account: "",
       });
     };
-    handleOkEdit = (values, Account) => {
-      const { Edit_members } = this.props;
-      this.setState({
-        confirmLoading: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          visibleEdit: false,
-          confirmLoading: false,
-        });
-        Edit_members(Account, null, true, values);
-      }, 1000);
-    };
+
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
     render() {
@@ -136,7 +124,17 @@ export default connect(
       };
       const onFinish = (values) => {
         const { Account } = this.state;
-        this.handleOkEdit(values, Account)
+        const { Edit_members } = this.props;
+        this.setState({
+          confirmLoading: true,
+        });
+        setTimeout(() => {
+          this.setState({
+            visibleEdit: false,
+            confirmLoading: false,
+          });
+          Edit_members(Account, null, true, values);
+        }, 1000);
       };
       const columns = [
         {

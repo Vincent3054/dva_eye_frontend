@@ -1,21 +1,23 @@
 import React, { Component } from "react";
 import { connect } from 'dva';
-import { Layout, Menu, Breadcrumb } from 'antd';
+import { Button, Select, Input, Form, Modal, Layout, Menu, Breadcrumb } from 'antd';
 import {
   DesktopOutlined,
   PieChartOutlined,
-  FileOutlined,
   TeamOutlined,
   UserOutlined,
 } from '@ant-design/icons';
 
 const mapStateToProps = state => {
   return {
+    members: state.member.login !== null ? state.member.login : [],
   };
 };
-
 const mapDispatchToProps = dispatch => {
   return {
+    Login_members(payload, callback, loading) {
+      dispatch({ type: 'member/Login_members', payload, callback, loading });
+    },
   };
 };
 export default connect(
@@ -24,6 +26,8 @@ export default connect(
   class layout extends Component {
     state = {
       collapsed: false,
+      visibleLogin: false,
+      validateMessages: "",
     };
 
     onCollapse = collapsed => {
@@ -31,43 +35,145 @@ export default connect(
       this.setState({ collapsed });
     };
 
+    showModalLogin = () => {
+      this.setState({
+        visibleLogin: true,
+      });
+    };
+    handleCancelLogin = () => {
+      this.setState({
+        visibleLogin: false,
+      });
+    };
     render() {
       const { Header, Content, Footer, Sider } = Layout;
       const { SubMenu } = Menu;
       const { children } = this.props;
+      const { visibleLogin } = this.state;
+      const { Option } = Select;
+
+      const layout = {
+        labelCol: {
+          span: 8,
+        },
+        wrapperCol: {
+          span: 10,
+        },
+      };
+      const tailLayout = {
+        wrapperCol: {
+          offset: 13,
+          span: 13,
+        },
+      };
+      const onFinish = (values) => {
+        const { Login_members } = this.props;
+        console.log('Success:', values);
+        this.setState({
+          confirmLoading: true,
+        });
+        setTimeout(() => {
+          this.setState({
+            visibleLogin: false,
+            confirmLoading: false,
+          });
+          Login_members(values);
+        }, 1000);
+      };
+
+      const onFinishFailed = (errorInfo) => {
+        console.log('Failed:', errorInfo);
+      };
 
       return (
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
             <div className="logo" />
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
-              <Menu.Item key="1" icon={<PieChartOutlined />}>
-                Option 1
-            </Menu.Item>
-              <Menu.Item key="2" icon={<DesktopOutlined />}>
-                Option 2
-            </Menu.Item>
-              <SubMenu key="sub1" icon={<UserOutlined />} title="User">
-                <Menu.Item key="3">Tom</Menu.Item>
-                <Menu.Item key="4">Bill</Menu.Item>
-                <Menu.Item key="5">Alex</Menu.Item>
+              <Menu.Item key="1" icon={<DesktopOutlined />}>
+                首頁
+              </Menu.Item>
+              <Menu.Item key="2" icon={<PieChartOutlined/>}>
+                後台
+              </Menu.Item>
+              <SubMenu key="sub1" icon={<UserOutlined />} title="會員管理">
+                <Menu.Item key="3">管理員</Menu.Item>
+                <Menu.Item key="4">會員</Menu.Item>                
               </SubMenu>
-              <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+              <SubMenu key="sub2" icon={<TeamOutlined />} title="其他">
                 <Menu.Item key="6">Team 1</Menu.Item>
                 <Menu.Item key="8">Team 2</Menu.Item>
               </SubMenu>
-              <Menu.Item key="9" icon={<FileOutlined />} />
             </Menu>
           </Sider>
           <Layout className="site-layout">
-            <Header className="site-layout-background" style={{ padding: 0 }} />
+            <Header className="site-layout-background" style={{ padding: 0 }} >
+              <div className="logo" />
+              <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ textAlign: "right" }}>
+                <Menu.Item key="11" onClick={this.showModalLogin}>登入</Menu.Item>
+                <Menu.Item key="12">註冊</Menu.Item>
+              </Menu>
+            </Header>
             <Content style={{ margin: '0 16px' }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>User</Breadcrumb.Item>
-                <Breadcrumb.Item>Bill</Breadcrumb.Item>
+                <Breadcrumb.Item>首頁</Breadcrumb.Item>
+                <Breadcrumb.Item>會員管理</Breadcrumb.Item>
               </Breadcrumb>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 {children}
+                <Modal
+                  title="登入"
+                  visible={visibleLogin}
+                  //onOk={() => this.handleOkDelete(record.Account)}
+                  onCancel={this.handleCancelLogin}
+                  width={700}
+                  footer={[]}
+                >
+                  <Form
+                    {...layout}
+                    name="basic"
+                    initialValues={{
+                      remember: true,
+                    }}
+                    onFinish={onFinish}
+                    onFinishFailed={onFinishFailed}
+                  >
+                    <Form.Item
+                      label="帳號"
+                      name="Account"
+                      rules={[
+                        {
+                          required: true,
+                          message: '請輸入您的帳號!',
+                        },
+                      ]}
+                    >
+                      <Input />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="密碼"
+                      name="Password"
+                      rules={[
+                        {
+                          required: true,
+                          message: '請輸入您的密碼!',
+                        },
+                      ]}
+                    >
+                      <Input.Password />
+                    </Form.Item>
+
+                    <Form.Item {...tailLayout}>
+                      <Button key="back" onClick={this.handleCancelLogin}>
+                        返回
+                      </Button>
+                      <Button type="primary" htmlType="submit">
+                        登入
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </Modal>
               </div>
             </Content>
             <Footer style={{ textAlign: 'center' }}>Ant Design ©2018 Created by Ant UED</Footer>
