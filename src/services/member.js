@@ -58,3 +58,15 @@ export function Login_members(Data) {
       throw error;
     });
 }
+export function Register_members(Data) {
+  return axios
+    .post(`${api_url}/Members/Register `,Data)
+    .then(res => {
+      console.log(res,42)
+      return res.data.data;
+    })
+    .catch(error => {
+      throw error;
+    });
+}
+
