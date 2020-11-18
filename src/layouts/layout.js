@@ -75,9 +75,6 @@ export default connect(
         wrapperCol: {
           span: 10,
         },
-        wrapperCol2: {
-          span: 15,
-        },
       };
 
       const tailLayout = {
@@ -92,12 +89,12 @@ export default connect(
         this.setState({
           confirmLoading: true,
         });
+        Login_members(values);
         setTimeout(() => {
           this.setState({
             visibleLogin: false,
             confirmLoading: false,
           });
-          Login_members(values);
         }, 1000);
       };
 
@@ -306,7 +303,7 @@ export default connect(
                       <DatePicker />
                     </Form.Item>
 
-                    <Form.Item wrapperCol={{ ...layout.wrapperCol2, offset: 16 }}>
+                    <Form.Item wrapperCol={{  offset: 16 }}>
                       <Button key="back" onClick={this.handleCancelRegister}>
                         返回
                       </Button>

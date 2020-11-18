@@ -4,6 +4,8 @@ import PropTypes from "prop-types";
 import _ from "lodash";
 import Index from "./routes/Index";
 import ClassList from "./routes/class.js";
+import Home from "./routes/Home";
+
 const{ConnectedRouter}=routerRedux;
 
 class Root extends Component{
@@ -24,7 +26,9 @@ const router =(props)=>{
       <RouterRoot  {...props}>
         <Switch>
           <Route path="/" exact component={Index}/>
-          <Route path="/ClassList" exact component={ClassList}/>
+          <Route path="/ClassList" exact component={ClassList} />
+          <Route path="/Home" exact component={Home}/>
+
         </Switch>
       </RouterRoot>
     </ConnectedRouter>
