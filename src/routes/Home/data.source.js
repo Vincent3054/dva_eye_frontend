@@ -4,7 +4,7 @@ export const Nav00DataSource = {
   page: { className: 'home-page' },
   logo: {
     className: 'header0-logo',
-    children: 'https://os.alipayobjects.com/rmsportal/mlcYmsRilwraoAe.svg',
+    children: 'https://upload.cc/i1/2020/11/19/7hdjrK.png',
   },
   Menu: {
     className: 'header0-menu',
@@ -146,13 +146,21 @@ export const Banner00DataSource = {
   textWrapper: { className: 'banner0-text-wrapper' },
   title: {
     className: 'banner0-title',
-    children: 'https://zos.alipayobjects.com/rmsportal/HqnZZjBjWRbjyMr.png',
+    children: 'https://upload.cc/i1/2020/11/19/mgG7PQ.png',
   },
   content: {
     className: 'banner0-content',
-    children: '一个高效的页面动画解决方案',
+    children: (
+      <span>
+        <p>Eye Opener-不良用眼行為警示系統</p>
+      </span>
+    ),
   },
-  button: { className: 'banner0-button', children: 'Learn More' },
+  button: {
+    className: 'banner0-button',
+    children: 'Learn More',
+    href: 'http://localhost:8080/123',
+  },
 };
 export const Content10DataSource = {
   wrapper: { className: 'home-page-wrapper content1-wrapper' },

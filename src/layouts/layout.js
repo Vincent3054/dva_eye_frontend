@@ -6,7 +6,9 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
+  FileOutlined
 } from '@ant-design/icons';
+import imgL001 from '../Assets/1.png';
 
 const mapStateToProps = state => {
   return {
@@ -125,7 +127,9 @@ export default connect(
       return (
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-            <div className="logo" />
+            <div className="logo" style={{ margin: '15px 15px 15px 30px'}}>
+              <img width={150} height={30} src={imgL001} />
+            </div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1" icon={<DesktopOutlined />}>
                 首頁
@@ -133,14 +137,12 @@ export default connect(
               <Menu.Item key="2" icon={<PieChartOutlined />}>
                 後台
               </Menu.Item>
-              <SubMenu key="sub1" icon={<UserOutlined />} title="會員管理">
-                <Menu.Item key="3">管理員</Menu.Item>
-                <Menu.Item key="4">會員</Menu.Item>
-              </SubMenu>
-              <SubMenu key="sub2" icon={<TeamOutlined />} title="其他">
-                <Menu.Item key="6">Team 1</Menu.Item>
-                <Menu.Item key="8">Team 2</Menu.Item>
-              </SubMenu>
+              <Menu.Item key="3" icon={<UserOutlined />}>
+                會員管理
+              </Menu.Item>
+              <Menu.Item key="4" icon={<FileOutlined />}>
+                其他
+              </Menu.Item>
             </Menu>
           </Sider>
           <Layout className="site-layout">
