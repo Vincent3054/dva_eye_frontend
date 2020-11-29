@@ -6,7 +6,8 @@ import {
   PieChartOutlined,
   TeamOutlined,
   UserOutlined,
-  FileOutlined
+  FileOutlined,
+  VideoCameraOutlined ,
 } from '@ant-design/icons';
 import imgL001 from '../Assets/1.png';
 
@@ -127,21 +128,24 @@ export default connect(
       return (
         <Layout style={{ minHeight: '100vh' }}>
           <Sider collapsible collapsed={this.state.collapsed} onCollapse={this.onCollapse}>
-            <div className="logo" style={{ margin: '15px 15px 15px 30px'}}>
+            <div className="logo" style={{ margin: '15px 15px 15px 30px' }}>
               <img width={150} height={30} src={imgL001} />
             </div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1" icon={<DesktopOutlined />}>
                 首頁
               </Menu.Item>
-              <Menu.Item key="2" icon={<PieChartOutlined />}>
-                後台
+              <Menu.Item key="2" icon={<VideoCameraOutlined  />}>
+                警示系統
               </Menu.Item>
-              <Menu.Item key="3" icon={<UserOutlined />}>
+              <Menu.Item key="3" icon={<FileOutlined />}>
+                紀錄系統
+              </Menu.Item>
+              <Menu.Item key="4" icon={<PieChartOutlined />}>
+                分析系統
+              </Menu.Item>
+              <Menu.Item key="5" icon={<TeamOutlined />}>
                 會員管理
-              </Menu.Item>
-              <Menu.Item key="4" icon={<FileOutlined />}>
-                其他
               </Menu.Item>
             </Menu>
           </Sider>
@@ -149,8 +153,8 @@ export default connect(
             <Header className="site-layout-background" style={{ padding: 0 }} >
               <div className="logo" />
               <Menu theme="dark" mode="horizontal" defaultSelectedKeys={['2']} style={{ textAlign: "right" }}>
-                <Menu.Item key="11" onClick={this.showModalLogin}>登入</Menu.Item>
-                <Menu.Item key="12" onClick={this.showModalRegister}>註冊</Menu.Item>
+                <Menu.Item key="11" onClick={this.showModalLogin}>個人資料</Menu.Item>
+                <Menu.Item key="12" onClick={this.showModalRegister}>登出</Menu.Item>
               </Menu>
             </Header>
             <Content style={{ margin: '0 16px' }}>
@@ -305,7 +309,7 @@ export default connect(
                       <DatePicker />
                     </Form.Item>
 
-                    <Form.Item wrapperCol={{  offset: 16 }}>
+                    <Form.Item wrapperCol={{ offset: 16 }}>
                       <Button key="back" onClick={this.handleCancelRegister}>
                         返回
                       </Button>

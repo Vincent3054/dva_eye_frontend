@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import Layouts from '../layouts/layout';
 import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, DatePicker, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
-import { values } from "lodash";
 import { CaretRightOutlined } from '@ant-design/icons';
-
 import warning from "../Assets/warning.png";
-const { Countdown } = Statistic;
-const deadline = Date.now() + 1000 * 60 * 60 * 24 * 2 + 1000 * 30; // Moment is also OK
+import test1 from "../Assets/test1.png"
+import notebooknew from "../Assets/notebooknew.png"
 
+const { Countdown } = Statistic;
+const deadline = Date.now() + 1000 + 1000 * 60; // Moment is also OK
 const { Title, Text } = Typography;
 const { Search, TextArea } = Input;
 
@@ -60,11 +60,12 @@ export default connect(
 )(
   class Detect extends Component {
     state = {
-      ModalTextDelete: '確認要刪除會員資料嗎?',
+      ModalTextDelete: '確認要刪除這筆資料嗎?',
       visibleDelete: false,
       visibleEdit: false,
       confirmLoading: false,
       Account: "",
+      loadings: [],
     };
 
     componentDidMount = () => {
@@ -74,7 +75,7 @@ export default connect(
 
     showModalDelete = (Account) => {
       this.setState({
-        ModalTextDelete: '確認要刪除' + Account + '會員資料嗎?',
+        ModalTextDelete: '確認要刪除這筆資料嗎?',
         visibleDelete: true,
       });
     };
@@ -102,18 +103,6 @@ export default connect(
         visibleEdit: true,
         Account: Account,
       });
-      //const { form } = this.props;
-      // //给form赋值
-      // const { getFieldValue } = this.props.form;
-      //this.props.form.setFieldsValue({
-      //  'Name': Name,
-      //     'Email': Email,
-      //     'Sex': Sex,
-      //     'BirthDate': BirthDate,
-      //  });
-      // this.formRef.current.setFieldsValue({
-      //   'Name': '123',
-      // });
     };
     handleCancelEdit = () => {
       this.setState({
@@ -121,6 +110,28 @@ export default connect(
         Account: "",
       });
     };
+
+    enterLoading = index => {
+      this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = true;
+
+        return {
+          loadings: newLoadings,
+        };
+      });
+      setTimeout(() => {
+        this.setState(({ loadings }) => {
+          const newLoadings = [...loadings];
+          newLoadings[index] = false;
+
+          return {
+            loadings: newLoadings,
+          };
+        });
+      }, 60000);
+    };
+
     render() {
       const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete } = this.state;
       const { Option } = Select;
@@ -164,7 +175,7 @@ export default connect(
           width: 10,
           align: 'right',
           render: img => (
-            <img height={50} src={img} />
+            <img height={50} src={img} style={{ paddingLeft: "100px" }} />
           )
         },
         {
@@ -191,7 +202,6 @@ export default connect(
               {tag.toUpperCase()}
             </Tag>
           ),
-
         },
         {
           title: ' ',
@@ -200,58 +210,28 @@ export default connect(
           //record 可以抓這欄的資料 ex {record.Account}
           render: (text, record) => (
             <Space size="middle">
-              <Button type="primary" onClick={() => this.showModalEdit(record.Account)}>項情</Button>
-              <Button type="primary" onClick={() => this.showModalDelete(record.Account)}>刪除</Button>
+              <Button onClick={() => this.showModalEdit(record.Account)}>詳細資訊</Button>
+              <Button danger onClick={() => this.showModalDelete(record.Account)}>刪除</Button>
               <Modal
-                title="編輯"
+                title="詳細資訊"
                 visible={visibleEdit}
                 onCancel={this.handleCancelEdit}
                 width={1000}
                 footer={[]}
               >
                 <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} ref={this.formRef} >
-                  <Form.Item
-                    name={['Name']}
-                    label="名子"
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    name={['Email']}
-                    label="信箱"
-                    rules={[
-                      {
-                        type: 'email',
-                      },
-                    ]}
-                  >
-                    <Input />
-                  </Form.Item>
-                  <Form.Item
-                    name={['Sex']}
-                    label="性別"
-                  >
-                    <Select
-                      placeholder="請選擇..."
-                      allowClear
-                    >
-                      <Option value="男">男</Option>
-                      <Option value="女">女</Option>
-                    </Select>
-                  </Form.Item>
-                  <Form.Item
-                    name={['BirthDate']}
-                    label="生日"
-                  >
-                    <DatePicker />
-                  </Form.Item>
-                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 16 }}>
-                    <Button key="back" onClick={this.handleCancelEdit}>
+                  <Row>
+                    <Col flex={5}>
+                      <img src={test1} width={450} style={{marginTop:50}}></img>
+                    </Col>
+                    <Col flex={5}>
+                      <img src={notebooknew} width={500}></img>
+                    </Col>
+                  </Row>
+                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 11 }} style={{ marginTop: "20px" }}>
+                    <Button type="primary" key="back" onClick={this.handleCancelEdit}>
                       返回
                     </Button>
-                    <Button type="primary" htmlType="submit">
-                      修改
-                  </Button>
                   </Form.Item>
                 </Form>
               </Modal>
@@ -280,7 +260,7 @@ export default connect(
         {
           key: '1',
           img: '警示圖',
-          Name: '坐姿問題1',
+          Name: '眼睛離電腦螢幕距離太近',
           Tag: '坐姿',
           Time: '下午02:25:56',
           img: warning,
@@ -289,8 +269,8 @@ export default connect(
         {
           key: '2',
           img: '警示圖',
-          Name: '環境問題1',
-          Tag: '環境',
+          Name: '眼睛位置低於電腦畫面',
+          Tag: '坐姿',
           Time: '下午02:25:15',
           img: warning,
           tags: ['nice', 'developer'],
@@ -298,42 +278,41 @@ export default connect(
         {
           key: '3',
           img: '警示圖',
-          Name: '環境問題1',
-          Tag: '環境',
-          Time: '下午02:25:15',
-          img: warning,
-          tags: ['nice', 'developer'],
-        },
-        {
-          key: '4',
-          img: '警示圖',
-          Name: '環境問題1',
+          Name: '環境光線太過昏暗',
           Tag: '環境',
           Time: '下午02:25:15',
           img: warning,
           tags: ['nice', 'developer'],
         },
       ];
+      const { loadings } = this.state;
+
       return (
         <Layouts>
           <div style={{ marginLeft: "15%", marginRight: "15%" }}>
             <div className="site-card-wrapper">
               <Row gutter={16}>
-                <Col span={8} style={{ padding: "0px 0px 0px 8px"}}>
-                  <Card bordered={false} style={{ textAlign: "center" , height:100}}>
-                    <Title level={3}>警告次數：0次</Title>
+                <Col span={8} style={{ padding: "0px 0px 0px 8px" }}>
+                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
+                    <Title level={3}>警告次數：3次</Title>
                   </Card>
                 </Col>
                 <Col span={8} style={{ padding: "0px 0px 0px 0px" }}>
-                  <Card bordered={false} style={{ textAlign: "center" , height:100 }}>
-                    <Button type="primary" icon={<CaretRightOutlined />} size="large">
-                      Download
-                    </Button>
+                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
+                    <Button
+                      type="primary"
+                      icon={<CaretRightOutlined />}
+                      loading={loadings[1]}
+                      onClick={() => this.enterLoading(1)}
+                      size="large"
+                    >
+                      Close
+                </Button>
                   </Card>
                 </Col>
                 <Col span={8} style={{ padding: "0px 8px 0px 0px" }}>
-                  <Card bordered={false} style={{ textAlign: "center" , height:100 }}>
-                    <Countdown value={deadline} format="D 天 H 時 m 分 s 秒" />
+                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
+                    <Countdown value={deadline} format="H 時 m 分 s 秒" />
                   </Card>
                 </Col>
               </Row>
@@ -341,7 +320,7 @@ export default connect(
             <br></br>
             <Row >
               <Col span={24} style={{ background: "#fff", padding: "0px 24px 0px 24px" }}>
-                <Col flex="auto" style={{ textAlign: "right", margin: "20pt 0pt 20pt 0pt" }}>
+                <Col flex="auto" style={{ textAlign: "right", margin: "20pt 20pt 20pt 0pt" }}>
                   <Radio.Group
                     value="all"
                     onChange={this.handleSizeChange}
@@ -357,7 +336,6 @@ export default connect(
               </Col>
             </Row>
           </div>
-
         </Layouts>
 
       )
