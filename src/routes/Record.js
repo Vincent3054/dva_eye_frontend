@@ -1,31 +1,11 @@
 import React, { Component } from "react";
-import Layouts from '../layouts/layout';
+import Layout from '../layouts/Recordlayout';
 import { connect } from 'dva';
-import { Form, Input, Select, Table, Space, Modal, Button, DatePicker, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Table, Space, Modal, Button, Col, Row,Tag } from 'antd';
+import { values } from "lodash";
 import warning from "../Assets/warning.png";
 import test1 from "../Assets/test1.png"
 import notebooknew from "../Assets/notebooknew.png"
-
-const { Countdown } = Statistic;
-const deadline = Date.now() + 1000 + 1000 * 60; // Moment is also OK
-const { Title, Text } = Typography;
-const { Search, TextArea } = Input;
-
-const data = [
-  {
-    title: 'Ant Design Title 1',
-  },
-  {
-    title: 'Ant Design Title 2',
-  },
-  {
-    title: 'Ant Design Title 3',
-  },
-  {
-    title: 'Ant Design Title 4',
-  },
-];
 
 const mapStateToProps = state => {
   return {
@@ -58,14 +38,13 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(
-  class Detect extends Component {
+  class Record extends Component {
     state = {
-      ModalTextDelete: '確認要刪除這筆資料嗎?',
+      ModalTextDelete: '確認要刪除會員資料嗎?',
       visibleDelete: false,
       visibleEdit: false,
       confirmLoading: false,
       Account: "",
-      loadings: [],
     };
 
     componentDidMount = () => {
@@ -75,7 +54,7 @@ export default connect(
 
     showModalDelete = (Account) => {
       this.setState({
-        ModalTextDelete: '確認要刪除這筆資料嗎?',
+        ModalTextDelete: '確認要刪除' + Account + '會員資料嗎?',
         visibleDelete: true,
       });
     };
@@ -103,6 +82,18 @@ export default connect(
         visibleEdit: true,
         Account: Account,
       });
+      //const { form } = this.props;
+      // //给form赋值
+      // const { getFieldValue } = this.props.form;
+      //this.props.form.setFieldsValue({
+      //  'Name': Name,
+      //     'Email': Email,
+      //     'Sex': Sex,
+      //     'BirthDate': BirthDate,
+      //  });
+      // this.formRef.current.setFieldsValue({
+      //   'Name': '123',
+      // });
     };
     handleCancelEdit = () => {
       this.setState({
@@ -111,27 +102,8 @@ export default connect(
       });
     };
 
-    enterLoading = index => {
-      this.setState(({ loadings }) => {
-        const newLoadings = [...loadings];
-        newLoadings[index] = true;
-
-        return {
-          loadings: newLoadings,
-        };
-      });
-      setTimeout(() => {
-        this.setState(({ loadings }) => {
-          const newLoadings = [...loadings];
-          newLoadings[index] = false;
-
-          return {
-            loadings: newLoadings,
-          };
-        });
-      }, 60000);
-    };
-
+    //antd裡面table組件 放東西進去
+    //table 裡面只接受陣列物件
     render() {
       const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete } = this.state;
       const { Option } = Select;
@@ -167,6 +139,7 @@ export default connect(
           Edit_members(Account, null, true, values);
         }, 1000);
       };
+
       const columns = [
         {
           title: '',
@@ -285,58 +258,13 @@ export default connect(
           tags: ['nice', 'developer'],
         },
       ];
-      const { loadings } = this.state;
 
       return (
-        <Layouts>
-          <div style={{ marginLeft: "15%", marginRight: "15%" }}>
-            <div className="site-card-wrapper">
-              <Row gutter={16}>
-                <Col span={8} style={{ padding: "0px 0px 0px 8px" }}>
-                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
-                    <Title level={3}>警告次數：3次</Title>
-                  </Card>
-                </Col>
-                <Col span={8} style={{ padding: "0px 0px 0px 0px" }}>
-                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
-                    <Button
-                      type="primary"
-                      icon={<CaretRightOutlined />}
-                      loading={loadings[1]}
-                      onClick={() => this.enterLoading(1)}
-                      size="large"
-                    >
-                      Close
-                </Button>
-                  </Card>
-                </Col>
-                <Col span={8} style={{ padding: "0px 8px 0px 0px" }}>
-                  <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
-                    <Countdown value={deadline} format="H 時 m 分 s 秒" />
-                  </Card>
-                </Col>
-              </Row>
-            </div>
-            <br></br>
-            <Row >
-              <Col span={24} style={{ background: "#fff", padding: "0px 24px 0px 24px" }}>
-                <Col flex="auto" style={{ textAlign: "right", margin: "20pt 20pt 20pt 0pt" }}>
-                  <Radio.Group
-                    value="all"
-                    onChange={this.handleSizeChange}
-                    style={{ marginRight: "3%" }}
-                  >
-                    <Radio.Button value="all">全部</Radio.Button>
-                    <Radio.Button value="default">坐姿</Radio.Button>
-                    <Radio.Button value="small">環境</Radio.Button>
-                  </Radio.Group>
-                  <Search placeholder="請輸入" style={{ width: 200 }} />
-                </Col>
-                <Table columns={columns} dataSource={dataSource} style={{ margin: "0px 30px 0px 30px" }} />
-              </Col>
-            </Row>
+        <Layout>
+          <div>
+            <Table columns={columns} dataSource={dataSource} style={{ margin: "0px 0px 0px 0px" }} />
           </div>
-        </Layouts>
+        </Layout>
 
       )
     }
