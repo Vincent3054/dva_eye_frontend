@@ -5,6 +5,9 @@ import _ from "lodash";
 import Index from "./routes/Index";
 import ClassList from "./routes/class.js";
 import Home from "./routes/Home";
+import Detect from "./routes/Detect";
+import Login from "./routes/Login";
+
 
 const{ConnectedRouter}=routerRedux;
 
@@ -27,7 +30,10 @@ const router =(props)=>{
         <Switch>
           <Route path="/" exact component={Index}/>
           <Route path="/ClassList" exact component={ClassList} />
-          <Route path="/Home" exact component={Home}/>
+          <Route path="/Home" exact component={Home} />
+          <Route path="/Detect" exact component={Detect}/>
+          <Route path="/Login" exact component={Login}/>
+
 
         </Switch>
       </RouterRoot>
