@@ -8,7 +8,7 @@ import Home from "./routes/Home";
 import Detect from "./routes/Detect";
 import Login from "./routes/Login";
 import Record from "./routes/Record";
-
+import Dashboard from "./routes/Dashboard";
 
 const{ConnectedRouter}=routerRedux;
 
@@ -35,7 +35,7 @@ const router =(props)=>{
           <Route path="/Detect" exact component={Detect}/>
           <Route path="/Login" exact component={Login}/>
           <Route path="/Record" exact component={Record}/>
-
+          <Route path="/Dashboard" exact component={Dashboard}/>
         </Switch>
       </RouterRoot>
     </ConnectedRouter>

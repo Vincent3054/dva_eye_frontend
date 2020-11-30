@@ -178,10 +178,6 @@ export default connect(
               </Menu>
             </Header>
             <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>首頁</Breadcrumb.Item>
-                <Breadcrumb.Item>會員管理</Breadcrumb.Item>
-              </Breadcrumb>
               <Content
                 className="site-layout-background"
                 style={{
@@ -205,7 +201,7 @@ export default connect(
                   <Option value="name2">依類別排序(由大到小)</Option>
                   <Option value="name2">依類別排序(由小到大)</Option>
                 </Select>
-                <DatePicker.RangePicker                  
+                <DatePicker.RangePicker
                   size="large"
                   style={{ width: '30%', marginRight: 20 }} />
                 <Search

@@ -158,10 +158,6 @@ export default connect(
               </Menu>
             </Header>
             <Content style={{ margin: '0 16px' }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
-                <Breadcrumb.Item>首頁</Breadcrumb.Item>
-                <Breadcrumb.Item>會員管理</Breadcrumb.Item>
-              </Breadcrumb>
               <div className="site-layout-background" style={{ padding: 24, minHeight: 360 }}>
                 {children}
                 <Modal

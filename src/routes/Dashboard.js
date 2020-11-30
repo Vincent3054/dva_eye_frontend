@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Layout from '../layouts/Recordlayout';
+import Layout from '../layouts/layout';
 import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, Col, Row, Tag, Card } from 'antd';
 import { values } from "lodash";
@@ -40,7 +40,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(
-  class Record extends Component {
+  class Dashboard extends Component {
     state = {
       ModalTextDelete: '確認要刪除會員資料嗎?',
       visibleDelete: false,
@@ -49,61 +49,6 @@ export default connect(
       Account: "",
     };
 
-    componentDidMount = () => {
-      const { GET_members } = this.props;
-      GET_members(null, true); //開關loading畫面
-
-    }
-
-    showModalDelete = (Account) => {
-      this.setState({
-        ModalTextDelete: '確認要刪除' + Account + '會員資料嗎?',
-        visibleDelete: true,
-      });
-    };
-    handleCancelDelete = () => {
-      this.setState({
-        visibleDelete: false,
-      });
-    };
-    handleOkDelete = (Account) => {
-      const { Delete_members } = this.props;
-      this.setState({
-        confirmLoading: true,
-      });
-      setTimeout(() => {
-        this.setState({
-          visibleDelete: false,
-          confirmLoading: false,
-        });
-        Delete_members(Account, null, true,);
-      }, 1000);
-    };
-
-    showModalEdit = (Account, Name, Email, Sex, BirthDate) => {
-      this.setState({
-        visibleEdit: true,
-        Account: Account,
-      });
-      //const { form } = this.props;
-      // //给form赋值
-      // const { getFieldValue } = this.props.form;
-      //this.props.form.setFieldsValue({
-      //  'Name': Name,
-      //     'Email': Email,
-      //     'Sex': Sex,
-      //     'BirthDate': BirthDate,
-      //  });
-      // this.formRef.current.setFieldsValue({
-      //   'Name': '123',
-      // });
-    };
-    handleCancelEdit = () => {
-      this.setState({
-        visibleEdit: false,
-        Account: "",
-      });
-    };
 
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
@@ -118,128 +63,6 @@ export default connect(
           span: 13,
         },
       };
-      const validateMessages = {
-        required: "${label} is required!",
-        types: {
-          email: '${label} is not validate email!',
-          number: '${label} is not a validate number!',
-        },
-        number: {
-          range: '${label} must be between ${min} and ${max}',
-        },
-      };
-      const onFinish = (values) => {
-        const { Account } = this.state;
-        const { Edit_members } = this.props;
-        this.setState({
-          confirmLoading: true,
-        });
-        setTimeout(() => {
-          this.setState({
-            visibleEdit: false,
-            confirmLoading: false,
-          });
-          Edit_members(Account, null, true, values);
-        }, 1000);
-      };
-
-      const columns = [
-        {
-          title: '',
-          dataIndex: 'img',
-          key: 'img',
-          width: 10,
-          align: 'right',
-          render: img => (
-            <img height={25} src={img} style={{ paddingLeft: "100px" }} />
-          )
-        },
-        {
-          title: '名稱',
-          dataIndex: 'Name',
-          key: 'Name',
-          width: 300,
-          align: "left",
-
-        },
-        {
-          title: '時間',
-          dataIndex: 'Time',
-          key: 'Time',
-          align: "center",
-        },
-        {
-          title: '類別',
-          dataIndex: 'tags',
-          key: 'tags',
-          align: "center",
-          render: tags => (
-            <>          
-              {tags.map(tag => {
-                let color = tag === "坐姿" ? '#6395F9' : '#62DAAB';
-              
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}      
-            </>      
-          ),
-        },
-        {
-          title: ' ',
-          key: 'action',
-          align: "center",
-          //record 可以抓這欄的資料 ex {record.Account}
-          render: (text, record) => (
-            <Space size="middle">
-              <Button onClick={() => this.showModalEdit(record.Account)}>詳細資訊</Button>
-              <Button danger onClick={() => this.showModalDelete(record.Account)}>刪除</Button>
-              <Modal
-                title="詳細資訊"
-                visible={visibleEdit}
-                onCancel={this.handleCancelEdit}
-                width={1000}
-                footer={[]}
-              >
-                <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} ref={this.formRef} >
-                  <Row>
-                    <Col flex={5}>
-                      <img src={test1} width={450} style={{ marginTop: 50 }}></img>
-                    </Col>
-                    <Col flex={5}>
-                      <img src={notebooknew} width={500}></img>
-                    </Col>
-                  </Row>
-                  <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 11 }} style={{ marginTop: "20px" }}>
-                    <Button type="primary" key="back" onClick={this.handleCancelEdit}>
-                      返回
-                    </Button>
-                  </Form.Item>
-                </Form>
-              </Modal>
-              <Modal
-                title="刪除"
-                visible={visibleDelete}
-                onOk={() => this.handleOkDelete(record.Account)}
-                confirmLoading={confirmLoading}
-                onCancel={this.handleCancelDelete}
-                footer={[
-                  <Button key="back" onClick={this.handleCancelDelete}>
-                    返回
-                  </Button>,
-                  <Button key="submit" type="primary" loading={confirmLoading} onClick={() => this.handleOkDelete(record.Account)}>
-                    確認
-                  </Button>,
-                ]}
-              >
-                <p>{ModalTextDelete}</p>
-              </Modal>
-            </Space>
-          ),
-        },
-      ];
       const dataSource = [
         {
           key: '1',
@@ -636,9 +459,7 @@ export default connect(
               </Card>
             </Col>
           </Row>
-          <div>
-            <Table columns={columns} dataSource={dataSource} style={{ margin: "0px 0px 0px 0px" }} />
-          </div>
+          
         </Layout>
 
       )
