@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Layout from '../layouts/layout';
 import { connect } from 'dva';
-import { Form, Input, Select, Table, Space, Modal, Button, DatePicker } from 'antd';
+import { Form, Input, Select, Table, Space, Modal, Button, DatePicker ,Typography} from 'antd';
 import { values } from "lodash";
+const { Title, Text } = Typography;
 
 const mapStateToProps = state => {
   return {
@@ -35,7 +36,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(
-  class Index extends Component {
+  class Member extends Component {
     state = {
       ModalTextDelete: '確認要刪除會員資料嗎?',
       visibleDelete: false,
@@ -248,6 +249,7 @@ export default connect(
       return (
         <Layout>
           <div>
+            <Title level={1}>會員管理</Title>
             <Table columns={columns} dataSource={this.props.members} />
           </div>
         </Layout>

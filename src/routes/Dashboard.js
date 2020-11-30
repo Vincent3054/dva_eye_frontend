@@ -53,76 +53,14 @@ export default connect(
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
     render() {
-      const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete } = this.state;
-      const { Option } = Select;
-      const layout = {
-        labelCol: {
-          span: 6,
-        },
-        wrapperCol: {
-          span: 13,
-        },
-      };
-
-      const LineData = [
-        { year: '11/25', value: 13 },
-        { year: '11/26', value: 7 },
-        { year: '11/27', value: 3 },
-        { year: '11/28', value: 4 },
-        { year: '11/29', value: 3 },
-      ];
-      var LineConfig = {
-        height: 250,
-        data: LineData,
-        xField: 'year',
-        yField: 'value',
-        label: {},
-        point: {
-          size: 5,
-          shape: 'diamond',
-          style: {
-            fill: 'white',
-            stroke: '#5B8FF9',
-            lineWidth: 2,
-          },
-        },
-        tooltip: { showMarkers: false },
-        state: {
-          active: {
-            style: {
-              shadowColor: 'yellow',
-              shadowBlur: 4,
-              stroke: 'transparent',
-              fill: 'red',
-            },
-          },
-        },
-        theme: {
-          geometries: {
-            point: {
-              diamond: {
-                active: {
-                  style: {
-                    shadowColor: '#FCEBB9',
-                    shadowBlur: 2,
-                    stroke: '#F6BD16',
-                  },
-                },
-              },
-            },
-          },
-        },
-        interactions: [{ type: 'marker-active' }],
-      };
-
       var PieData = [
         {
           type: '坐姿',
-          value: 33,
+          value: 99,
         },
         {
           type: '環境',
-          value: 7,
+          value: 21,
         },
       ];
 
@@ -158,23 +96,23 @@ export default connect(
       var BarData = [
         {
           year: '眼睛離電腦螢幕距離太近	',
-          value: 13,
+          value: 29,
         },
         {
           year: '眼睛位置低於電腦畫面	',
-          value: 8,
+          value: 24,
         },
         {
           year: '環境光線太過昏暗	',
-          value: 4,
+          value: 16,
         },
         {
           year: '眼睛離電腦螢幕距離太遠',
-          value: 3,
+          value: 9,
         },
         {
           year: '腳底未平放在地面上',
-          value: 1,
+          value: 7,
         },
       ];
 
@@ -189,28 +127,28 @@ export default connect(
 
       var Pie2Data = [
         {
-          type: '分类一',
-          value: 27,
+          type: '眼睛離電腦螢幕距離太近',
+          value: 24,
         },
         {
-          type: '分类二',
-          value: 25,
+          type: '眼睛位置低於電腦畫面	',
+          value: 20,
         },
         {
-          type: '分类三',
-          value: 18,
+          type: '環境光線太過昏暗',
+          value: 13,
         },
         {
-          type: '分类四',
-          value: 15,
+          type: '眼睛離電腦螢幕距離太遠',
+          value: 7,
         },
         {
-          type: '分类五',
-          value: 10,
+          type: '腳底未平放在地面上',
+          value: 6,
         },
         {
           type: '其他',
-          value: 5,
+          value: 30,
         },
       ];
 
@@ -230,95 +168,145 @@ export default connect(
       var uvData = [
         {
           time: '11/20',
-          value: 35,
+          value: 14,
         },
         {
           time: '11/21',
-          value: 90,
+          value: 18,
         },
         {
           time: '11/22',
-          value: 30,
+          value: 17,
         },
         {
           time: '11/23',
-          value: 45,
+          value: 14,
         },
         {
           time: '11/24',
-          value: 47,
+          value: 17,
         },
         {
           time: '11/25',
-          value: 35,
+          value: 16,
         },
         {
           time: '11/26',
-          value: 90,
+          value: 10,
         },
         {
           time: '11/27',
-          value: 30,
+          value: 7,
         },
         {
           time: '11/28',
-          value: 45,
+          value: 4,
         },
         {
           time: '11/29',
-          value: 47,
+          value: 3,
         },
       ];
       var transformData = [
         {
           time: '11/20',
-          count: 800,
-          name: 'a',
+          count: 2,
+          name: '坐姿',
         },
         {
           time: '11/21',
-          count: 600,
-          name: 'a',
+          count: 3,
+          name: '坐姿',
         },
         {
           time: '11/22',
-          count: 400,
-          name: 'a',
+          count: 3,
+          name: '坐姿',
         },
         {
           time: '11/23',
-          count: 380,
-          name: 'a',
+          count: 2,
+          name: '坐姿',
         },
         {
           time: '11/24',
-          count: 220,
-          name: 'a',
-        },
-        {
-          time: '11/21',
-          count: 750,
-          name: 'b',
-        },
-        {
-          time: '11/22',
-          count: 650,
-          name: 'b',
-        },
-        {
-          time: '11/23',
-          count: 450,
-          name: 'b',
-        },
-        {
-          time: '11/24',
-          count: 400,
-          name: 'b',
+          count: 3,
+          name: '坐姿',
         },
         {
           time: '11/25',
-          count: 320,
-          name: 'b',
+          count: 3,
+          name: '坐姿',
+        },
+        {
+          time: '11/26',
+          count: 2,
+          name: '坐姿',
+        },
+        {
+          time: '11/27',
+          count: 1,
+          name: '坐姿',
+        },
+        {
+          time: '11/28',
+          count: 1,
+          name: '坐姿',
+        },
+        {
+          time: '11/29',
+          count: 1,
+          name: '坐姿',
+        },
+        {
+          time: '11/20',
+          count: 12,
+          name: '環境',
+        },
+        {
+          time: '11/21',
+          count: 15,
+          name: '環境',
+        },
+        {
+          time: '11/22',
+          count: 14,
+          name: '環境',
+        },
+        {
+          time: '11/23',
+          count: 10,
+          name: '環境',
+        },
+        {
+          time: '11/24',
+          count: 14,
+          name: '環境',
+        },
+        {
+          time: '11/25',
+          count: 13,
+          name: '環境',
+        },
+        {
+          time: '11/26',
+          count: 8,
+          name: '環境',
+        },
+        {
+          time: '11/27',
+          count: 6,
+          name: '環境',
+        },
+        {
+          time: '11/28',
+          count: 3,
+          name: '環境',
+        },
+        {
+          time: '11/29',
+          count: 2,
+          name: '環境',
         },
       ];
 
@@ -341,30 +329,25 @@ export default connect(
       return (
         <Layout>
           <Row style={{ marginBottom: 30 }}>
-            <Col span={8}>
-              <Card title="警示次數" bordered={false} style={{ width: 500 }}>
-                <Line {...LineConfig} />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="類別比例" bordered={false} style={{ width: 500 }}>
-                <Pie {...PieConfig} />
-              </Card>
-            </Col>
-            <Col span={8}>
-              <Card title="前五名常出現的類別" bordered={false} style={{ width: 500 }}>
+            <Col span={16}>
+              <Card title="最常出現的警示狀態" bordered={false} style={{ width: 1040 }}>
                 <Bar  {...BarConfig} />
+              </Card>
+            </Col>
+            <Col span={8}>
+              <Card title="類別比例" bordered={false} style={{ width: 530 }}>
+                <Pie {...PieConfig} />
               </Card>
             </Col>
           </Row>
           <Row style={{ marginBottom: 30 }}>
-            <Col span={8}>
-              <Card title="1" bordered={false} style={{ width: 500 }}>
+            <Col span={10}>
+              <Card title="警示狀態比例" bordered={false} style={{ width: 660 }}>
                 <Pie {...Pie2Config} />
               </Card>
             </Col>
-            <Col span={16}>
-              <Card title="2" bordered={false} style={{ width: 1000 }}>
+            <Col span={14}>
+              <Card title="人數狀態區間圖" bordered={false} style={{ width: 940 }}>
                 <DualAxes {...DualAxesConfig} />
               </Card>
             </Col>

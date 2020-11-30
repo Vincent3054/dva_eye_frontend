@@ -174,17 +174,17 @@ export default connect(
           key: 'tags',
           align: "center",
           render: tags => (
-            <>          
+            <>
               {tags.map(tag => {
                 let color = tag === "坐姿" ? '#6395F9' : '#62DAAB';
-              
+
                 return (
                   <Tag color={color} key={tag}>
                     {tag.toUpperCase()}
                   </Tag>
                 );
-              })}      
-            </>      
+              })}
+            </>
           ),
         },
         {
@@ -495,9 +495,9 @@ export default connect(
       ];
 
       const LineData = [
-        { year: '11/25', value: 13 },
-        { year: '11/26', value: 7 },
-        { year: '11/27', value: 3 },
+        { year: '11/25', value: 16 },
+        { year: '11/26', value: 10 },
+        { year: '11/27', value: 7 },
         { year: '11/28', value: 4 },
         { year: '11/29', value: 3 },
       ];
@@ -631,7 +631,7 @@ export default connect(
               </Card>
             </Col>
             <Col span={8}>
-              <Card title="前五名常出現的類別" bordered={false} style={{ width: 500 }}>
+              <Card title="前五名常出現的類別" bordered={false} style={{ width: 540 }}>
                 <Bar  {...BarConfig} />
               </Card>
             </Col>

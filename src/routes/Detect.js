@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Layouts from '../layouts/layout';
 import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, DatePicker, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
-import { CaretRightOutlined } from '@ant-design/icons';
+import { CaretRightOutlined,PauseOutlined,RedoOutlined } from '@ant-design/icons';
 import warning from "../Assets/warning.png";
-import test1 from "../Assets/test1.png"
-import notebooknew from "../Assets/notebooknew.png"
+import test1 from "../Assets/test1.png";
+import notebooknew from "../Assets/notebooknew.png";
+import btn from "./btn.css";
 
 const { Countdown } = Statistic;
 const deadline = Date.now() + 1000 + 1000 * 60; // Moment is also OK
@@ -66,6 +67,7 @@ export default connect(
       confirmLoading: false,
       Account: "",
       loadings: [],
+      secondsElapsed: 0,
     };
 
     componentDidMount = () => {
@@ -98,18 +100,6 @@ export default connect(
       }, 1000);
     };
 
-    showModalEdit = (Account, Name, Email, Sex, BirthDate) => {
-      this.setState({
-        visibleEdit: true,
-        Account: Account,
-      });
-    };
-    handleCancelEdit = () => {
-      this.setState({
-        visibleEdit: false,
-        Account: "",
-      });
-    };
 
     enterLoading = index => {
       this.setState(({ loadings }) => {
@@ -131,6 +121,32 @@ export default connect(
         });
       }, 60000);
     };
+
+    getHours() {
+      return ("0" + Math.round(this.state.secondsElapsed / 3600)).slice(-2);
+    }
+    getMinutes() {
+      return ("0" + Math.round((this.state.secondsElapsed % 3600) / 60)).slice(
+        -2
+      );
+    }
+    getSeconds() {
+      return ("0" + (this.state.secondsElapsed % 60)).slice(-2);
+    }
+    startTime() {
+      var _this = this;
+      this.countdown = setInterval(function () {
+        _this.setState({ secondsElapsed: _this.state.secondsElapsed + 1 });
+      }, 1000);
+    }
+    resetTime() {
+      this.reset = this.setState({
+        secondsElapsed: (this.state.secondsElapsed = 0)
+      });
+    }
+    pauseTime() {
+      clearInterval(this.countdown);
+    }
 
     render() {
       const { visibleDelete, visibleEdit, confirmLoading, ModalTextDelete } = this.state;
@@ -175,7 +191,7 @@ export default connect(
           width: 10,
           align: 'right',
           render: img => (
-            <img height={50} src={img} style={{ paddingLeft: "100px" }} />
+            <img height={25} src={img} style={{ paddingLeft: "100px" }} />
           )
         },
         {
@@ -222,7 +238,7 @@ export default connect(
                 <Form {...layout} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages} ref={this.formRef} >
                   <Row>
                     <Col flex={5}>
-                      <img src={test1} width={450} style={{marginTop:50}}></img>
+                      <img src={test1} width={450} style={{ marginTop: 50 }}></img>
                     </Col>
                     <Col flex={5}>
                       <img src={notebooknew} width={500}></img>
@@ -305,14 +321,38 @@ export default connect(
                       loading={loadings[1]}
                       onClick={() => this.enterLoading(1)}
                       size="large"
+                      style={{marginRight:"10px"}}
+                      onClick={() => this.startTime()}
                     >
-                      Close
-                </Button>
+                      Start
+                    </Button>
+                    <Button
+                      type="primary"
+                      icon={<PauseOutlined />}
+                      loading={loadings[1]}
+                      onClick={() => this.enterLoading(1)}
+                      size="large"
+                      style={{marginRight:"10px"}}
+                      onClick={() => this.pauseTime()}
+                    >
+                      Pause
+                    </Button>
+                    <Button
+                      type="primary"
+                      icon={<RedoOutlined />}
+                      loading={loadings[1]}
+                      onClick={() => this.enterLoading(1)}
+                      size="large"
+                      style={{marginRight:"10px"}}
+                      onClick={() => this.resetTime()}
+                    >
+                      Reset
+                    </Button>
                   </Card>
                 </Col>
                 <Col span={8} style={{ padding: "0px 8px 0px 0px" }}>
                   <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
-                    <Countdown value={deadline} format="H 時 m 分 s 秒" />
+                    <Title level={3}>{this.getHours()}時:{this.getMinutes()}分:{this.getSeconds()}秒</Title>
                   </Card>
                 </Col>
               </Row>
@@ -342,3 +382,15 @@ export default connect(
     }
   }
 )
+/*
+<Button
+                      type="primary"
+                      icon={<CaretRightOutlined />}
+                      loading={loadings[1]}
+                      onClick={() => this.enterLoading(1)}
+                      size="large"
+                    >
+                      123
+                    </Button>
+
+*/

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from 'dva';
 import { DatePicker, Button, Select, Input, Form, Modal, Layout, Menu, Breadcrumb } from 'antd';
+import { Link } from "react-router-dom";
 import {
   DesktopOutlined,
   PieChartOutlined,
@@ -153,19 +154,19 @@ export default connect(
             </div>
             <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
               <Menu.Item key="1" icon={<DesktopOutlined />}>
-                首頁
+                <Link to="/">首頁</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                警示系統
+                <Link to="/Detect">警示系統</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<FileOutlined />}>
-                紀錄系統
+                <Link to="/Record">紀錄系統</Link>
               </Menu.Item>
               <Menu.Item key="4" icon={<PieChartOutlined />}>
-                分析系統
+                <Link to="/Dashboard">分析系統</Link>
               </Menu.Item>
               <Menu.Item key="5" icon={<TeamOutlined />}>
-                會員管理
+                <Link to="/Member">會員管理</Link>
               </Menu.Item>
             </Menu>
           </Sider>
