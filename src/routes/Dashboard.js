@@ -6,7 +6,7 @@ import { values } from "lodash";
 import warning from "../Assets/warning.png";
 import test1 from "../Assets/test1.png"
 import notebooknew from "../Assets/notebooknew.png"
-import { Line, Pie, Bar } from '@ant-design/charts';
+import { Line, Pie, Bar, DualAxes } from '@ant-design/charts';
 
 const mapStateToProps = state => {
   return {
@@ -63,259 +63,6 @@ export default connect(
           span: 13,
         },
       };
-      const dataSource = [
-        {
-          key: '1',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Tag: '坐姿',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '2',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Tag: '坐姿',
-          Time: '2020/11/29 下午02:20:15',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '3',
-          img: '警示圖',
-          Name: '環境光線太過昏暗',
-          Time: '2020/11/29 下午02:18:03',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '4',
-          img: '警示圖',
-          Name: '腳底未平放在地面上',
-          Tag: '坐姿',
-          Time: '2020/11/28 上午10:25:05',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '5',
-          img: '警示圖',
-          Name: '桌面和地面的距離太高',
-          Time: '2020/11/28 上午10:19:35',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '6',
-          img: '警示圖',
-          Name: '椅子高度太低',
-          Time: '2020/11/28 上午10:18:28',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '7',
-          img: '警示圖',
-          Name: '桌面和地面的距離太低',
-          Time: '2020/11/28 上午10:10:02',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '8',
-          img: '警示圖',
-          Name: '椅子高度太高',
-          Time: '2020/11/27 下午07:55:13',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '9',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太遠',
-          Time: '2020/11/27 下午07:20:50',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '10',
-          img: '警示圖',
-          Name: '眼睛位置高於電腦畫面',
-          Time: '2020/11/27 下午07:15:03',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '11',
-          img: '警示圖',
-          Name: '眼睛位置高於電腦畫面',
-          Time: '2020/11/26 下午02:25:15',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '12',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '13',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '14',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '15',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '16',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '17',
-          img: '警示圖',
-          Name: '環境光線太過昏暗',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '18',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '19',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '20',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '21',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '22',
-          img: '警示圖',
-          Name: '眼睛離電腦螢幕距離太近',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '23',
-          img: '警示圖',
-          Name: '環境光線太過昏暗',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['環境'],
-        },
-        {
-          key: '24',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '25',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '26',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '27',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '28',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '29',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '30',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-        {
-          key: '31',
-          img: '警示圖',
-          Name: '眼睛位置低於電腦畫面',
-          Time: '2020/11/29 下午02:25:56',
-          img: warning,
-          tags: ['坐姿'],
-        },
-      ];
 
       const LineData = [
         { year: '11/25', value: 13 },
@@ -440,6 +187,157 @@ export default connect(
         legend: { position: 'top-left' },
       };
 
+      var Pie2Data = [
+        {
+          type: '分类一',
+          value: 27,
+        },
+        {
+          type: '分类二',
+          value: 25,
+        },
+        {
+          type: '分类三',
+          value: 18,
+        },
+        {
+          type: '分类四',
+          value: 15,
+        },
+        {
+          type: '分类五',
+          value: 10,
+        },
+        {
+          type: '其他',
+          value: 5,
+        },
+      ];
+
+      var Pie2Config = {
+        appendPadding: 10,
+        data: Pie2Data,
+        angleField: 'value',
+        colorField: 'type',
+        radius: 0.8,
+        label: {
+          type: 'outer',
+          content: '{name} {percentage}',
+        },
+        interactions: [{ type: 'pie-legend-active' }, { type: 'element-active' }],
+      };
+
+      var uvData = [
+        {
+          time: '11/20',
+          value: 35,
+        },
+        {
+          time: '11/21',
+          value: 90,
+        },
+        {
+          time: '11/22',
+          value: 30,
+        },
+        {
+          time: '11/23',
+          value: 45,
+        },
+        {
+          time: '11/24',
+          value: 47,
+        },
+        {
+          time: '11/25',
+          value: 35,
+        },
+        {
+          time: '11/26',
+          value: 90,
+        },
+        {
+          time: '11/27',
+          value: 30,
+        },
+        {
+          time: '11/28',
+          value: 45,
+        },
+        {
+          time: '11/29',
+          value: 47,
+        },
+      ];
+      var transformData = [
+        {
+          time: '11/20',
+          count: 800,
+          name: 'a',
+        },
+        {
+          time: '11/21',
+          count: 600,
+          name: 'a',
+        },
+        {
+          time: '11/22',
+          count: 400,
+          name: 'a',
+        },
+        {
+          time: '11/23',
+          count: 380,
+          name: 'a',
+        },
+        {
+          time: '11/24',
+          count: 220,
+          name: 'a',
+        },
+        {
+          time: '11/21',
+          count: 750,
+          name: 'b',
+        },
+        {
+          time: '11/22',
+          count: 650,
+          name: 'b',
+        },
+        {
+          time: '11/23',
+          count: 450,
+          name: 'b',
+        },
+        {
+          time: '11/24',
+          count: 400,
+          name: 'b',
+        },
+        {
+          time: '11/25',
+          count: 320,
+          name: 'b',
+        },
+      ];
+
+      var DualAxesConfig = {
+        data: [uvData, transformData],
+        xField: 'time',
+        yField: ['value', 'count'],
+        geometryOptions: [
+          {
+            geometry: 'column',
+            columnWidthRatio: 0.4,
+          },
+          {
+            geometry: 'line',
+            seriesField: 'name',
+          },
+        ],
+      };
+
       return (
         <Layout>
           <Row style={{ marginBottom: 30 }}>
@@ -459,7 +357,18 @@ export default connect(
               </Card>
             </Col>
           </Row>
-          
+          <Row style={{ marginBottom: 30 }}>
+            <Col span={8}>
+              <Card title="1" bordered={false} style={{ width: 500 }}>
+                <Pie {...Pie2Config} />
+              </Card>
+            </Col>
+            <Col span={16}>
+              <Card title="2" bordered={false} style={{ width: 1000 }}>
+                <DualAxes {...DualAxesConfig} />
+              </Card>
+            </Col>
+          </Row>
         </Layout>
 
       )
