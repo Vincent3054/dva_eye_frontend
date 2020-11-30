@@ -205,7 +205,7 @@ export default connect(
                   <Option value="name2">依類別排序(由大到小)</Option>
                   <Option value="name2">依類別排序(由小到大)</Option>
                 </Select>
-                <DatePicker.RangePicker
+                <DatePicker.RangePicker                  
                   size="large"
                   style={{ width: '30%', marginRight: 20 }} />
                 <Search
