@@ -4,7 +4,7 @@ import { connect } from 'dva';
 import { Form, Input, Select, Table, Space, Modal, Button, Col, Row, Tag, Card } from 'antd';
 import { values } from "lodash";
 import warning from "../Assets/warning.png";
-import test1 from "../Assets/test1.png"
+import test1 from "../Assets/test1.jpg"
 import notebooknew from "../Assets/notebooknew.png"
 import { Line, Pie, Bar } from '@ant-design/charts';
 

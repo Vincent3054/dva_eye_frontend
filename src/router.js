@@ -6,6 +6,7 @@ import Member from "./routes/Member";
 import ClassList from "./routes/class.js";
 import Home from "./routes/Home";
 import Detect from "./routes/Detect";
+import Detect0 from "./routes/Detect0";
 import Login from "./routes/Login";
 import Record from "./routes/Record";
 import Dashboard from "./routes/Dashboard";
@@ -32,7 +33,8 @@ const router =(props)=>{
           <Route path="/Member" exact component={Member}/>
           <Route path="/ClassList" exact component={ClassList} />
           <Route path="/" exact component={Home} />
-          <Route path="/Detect" exact component={Detect}/>
+          <Route path="/Detect" exact component={Detect} />
+          <Route path="/Detect0" exact component={Detect0}/>
           <Route path="/Login" exact component={Login}/>
           <Route path="/Record" exact component={Record}/>
           <Route path="/Dashboard" exact component={Dashboard}/>

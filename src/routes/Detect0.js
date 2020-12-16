@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import Layouts from '../layouts/layout';
 import { connect } from 'dva';
-import { Form, Input, Select, Table, Space, Modal, Button, DatePicker, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
-import { CaretRightOutlined,PauseOutlined,RedoOutlined } from '@ant-design/icons';
+import { Form, Input, Select, Table, Space, Modal, Button, Empty, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
+import { CaretRightOutlined, PauseOutlined, RedoOutlined } from '@ant-design/icons';
 import warning from "../Assets/warning.png";
-import test1 from "../Assets/test1.jpg";
+import test1 from "../Assets/test1.png";
 import notebooknew from "../Assets/notebooknew.png";
 import btn from "./btn.css";
 
@@ -59,7 +59,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps, mapDispatchToProps
 )(
-  class Detect extends Component {
+  class Detect0 extends Component {
     state = {
       ModalTextDelete: '確認要刪除這筆資料嗎?',
       visibleDelete: false,
@@ -105,19 +105,6 @@ export default connect(
         Account: "",
       });
     };
-    showModalEdit = (Account, Name, Email, Sex, BirthDate) => {
-      this.setState({
-        visibleEdit: true,
-        Account: Account,
-      });
-    };
-    handleCancelEdit = () => {
-      this.setState({
-        visibleEdit: false,
-        Account: "",
-      });
-    };
-
 
     enterLoading = index => {
       this.setState(({ loadings }) => {
@@ -296,7 +283,7 @@ export default connect(
           img: '警示圖',
           Name: '眼睛離電腦螢幕距離太近',
           Tag: '坐姿',
-          Time: '2020/11/29 下午02:25:12',
+          Time: '2020/11/29 下午02:25:22',
           img: warning,
           tags: ['nice', 'developer'],
         },
@@ -305,7 +292,7 @@ export default connect(
           img: '警示圖',
           Name: '眼睛位置低於電腦畫面',
           Tag: '坐姿',
-          Time: '2020/11/29 下午02:25:8',
+          Time: '2020/11/29 下午02:25:12',
           img: warning,
           tags: ['nice', 'developer'],
         },
@@ -328,7 +315,7 @@ export default connect(
               <Row gutter={16}>
                 <Col span={8} style={{ padding: "0px 0px 0px 8px" }}>
                   <Card bordered={false} style={{ textAlign: "center", height: 120, padding: "20px 0px 20px 0px" }}>
-                    <Title level={3}>警告次數：3次</Title>
+                    <Title level={3}>警告次數：0次</Title>
                   </Card>
                 </Col>
                 <Col span={8} style={{ padding: "0px 0px 0px 0px" }}>
@@ -339,7 +326,7 @@ export default connect(
                       loading={loadings[1]}
                       onClick={() => this.enterLoading(1)}
                       size="large"
-                      style={{marginRight:"10px"}}
+                      style={{ marginRight: "10px" }}
                       onClick={() => this.startTime()}
                     >
                       Start
@@ -350,7 +337,7 @@ export default connect(
                       loading={loadings[1]}
                       onClick={() => this.enterLoading(1)}
                       size="large"
-                      style={{marginRight:"10px"}}
+                      style={{ marginRight: "10px" }}
                       onClick={() => this.pauseTime()}
                     >
                       Pause
@@ -361,7 +348,7 @@ export default connect(
                       loading={loadings[1]}
                       onClick={() => this.enterLoading(1)}
                       size="large"
-                      style={{marginRight:"10px"}}
+                      style={{ marginRight: "10px" }}
                       onClick={() => this.resetTime()}
                     >
                       Reset
@@ -390,7 +377,7 @@ export default connect(
                   </Radio.Group>
                   <Search placeholder="請輸入" style={{ width: 200 }} />
                 </Col>
-                <Table columns={columns} dataSource={dataSource} style={{ margin: "0px 30px 0px 30px" }} />
+                <Empty style={{ margin: "100px 100px" }} />
               </Col>
             </Row>
           </div>
