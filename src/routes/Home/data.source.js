@@ -207,7 +207,7 @@ export const Banner00DataSource = {
         <p>Opene</p>
       </span>
     ),
-    href: 'http://localhost:8080/#/Detect',
+    href: 'http://localhost:8080/#/Login',
   },
 };
 export const Content10DataSource = {
@@ -225,7 +225,9 @@ export const Content10DataSource = {
         <span>
           <span>
             <span>
-              <p>用眼不良的發現與提醒</p>
+              <span>
+                <p>用眼不良的發現與提醒</p>
+              </span>
             </span>
           </span>
         </span>
@@ -248,7 +250,7 @@ export const Feature20DataSource = {
   OverPack: { className: 'home-page content2', playScale: 0.3 },
   imgWrapper: { className: 'content2-img', md: 10, xs: 24 },
   img: {
-    children: 'https://www.flaticon.com/svg/static/icons/svg/2535/2535969.svg',
+    children: 'https://www.flaticon.com/svg/static/icons/svg/2535/2535957.svg',
   },
   textWrapper: { className: 'content2-text', md: 14, xs: 24 },
   title: {
@@ -257,7 +259,9 @@ export const Feature20DataSource = {
       <span>
         <span>
           <span>
-            <p>用眼狀態管理</p>
+            <span>
+              <p>用眼狀態自主管理</p>
+            </span>
           </span>
         </span>
       </span>
@@ -279,7 +283,7 @@ export const Feature10DataSource = {
   OverPack: { className: 'home-page content1', playScale: 0.3 },
   imgWrapper: { className: 'content1-img', md: 10, xs: 24 },
   img: {
-    children: 'https://www.flaticon.com/svg/static/icons/svg/3135/3135706.svg',
+    children: 'https://www.flaticon.com/svg/static/icons/svg/2535/2535969.svg',
   },
   textWrapper: { className: 'content1-text', md: 14, xs: 24 },
   title: {
@@ -287,7 +291,9 @@ export const Feature10DataSource = {
     children: (
       <span>
         <span>
-          <p>輔助與降低醫療成本</p>
+          <span>
+            <p>提供詳細數據 一目暸然</p>
+          </span>
         </span>
       </span>
     ),
@@ -296,9 +302,11 @@ export const Feature10DataSource = {
     className: 'content1-content',
     children: (
       <span>
-        <p>
-          民眾能隨時檢測並改善，也解決延誤治療的黃金時期，造成醫療資源和成本增加等問題。
-        </p>
+        <span>
+          <span>
+            <p>可利用儀表板統計資料，作為醫療依據。</p>
+          </span>
+        </span>
       </span>
     ),
   },
@@ -335,7 +343,7 @@ export const Content00DataSource = {
               name: 'image',
               className: 'content0-block-icon',
               children:
-                'https://zos.alipayobjects.com/rmsportal/WBnVOjtIlGWbzyQivuyq.png',
+                'https://zos.alipayobjects.com/rmsportal/EkXWVvAaFJKCzhMmQYiX.png',
             },
             {
               name: 'title',
@@ -399,10 +407,15 @@ export const Content00DataSource = {
               name: 'content',
               children: (
                 <span>
-                  <p>CRUD基本資料登入/註冊</p>
-                  <p>
-                    驗證身份<br />
-                  </p>
+                  <span>
+                    <span>
+                      <p>
+                        <span>圖片上傳、影像分析、開啟/關閉偵測</span>
+                        <br />
+                      </p>
+                      <p>辨識人臉、標記特徵點、狀態警示</p>
+                    </span>
+                  </span>
                 </span>
               ),
             },
@@ -421,7 +434,7 @@ export const Content00DataSource = {
               name: 'image',
               className: 'content0-block-icon',
               children:
-                'https://zos.alipayobjects.com/rmsportal/EkXWVvAaFJKCzhMmQYiX.png',
+                'https://zos.alipayobjects.com/rmsportal/WBnVOjtIlGWbzyQivuyq.png',
             },
             {
               name: 'title',
@@ -438,14 +451,14 @@ export const Content00DataSource = {
               name: 'content',
               children: (
                 <span>
-                  <p>
-                    圖片上傳、<span>影像分析、</span>
-                    <span>開啟/關閉偵測</span>
-                  </p>
-                  <p>
-                    辨識人臉、<span>標記特徵點、</span>
-                    <span>狀態警示</span>
-                  </p>
+                  <span>
+                    <span>
+                      <span>
+                        <p>CRUD基本資料登入/註冊</p>
+                        <p>驗證身份</p>
+                      </span>
+                    </span>
+                  </span>
                 </span>
               ),
             },
@@ -481,7 +494,7 @@ export const Feature80DataSource = {
         name: 'button',
         className: 'feature8-button',
         children: {
-          href: 'http://localhost:8080/#/Detect',
+          href: 'http://localhost:8080/#/Login',
           children: (
             <span>
               <p>立即體驗</p>
@@ -535,7 +548,13 @@ export const Feature80DataSource = {
                     className: 'feature8-block-title',
                     children: (
                       <span>
-                        <p>照片分類</p>
+                        <span>
+                          <span>
+                            <span>
+                              <p>照片偵測</p>
+                            </span>
+                          </span>
+                        </span>
                       </span>
                     ),
                   },
@@ -902,7 +921,13 @@ export const Content30DataSource = {
       {
         name: 'content',
         className: 'title-content',
-        children: '基于阿里云强大的基础资源',
+        children: (
+          <span>
+            <p>
+              <br />
+            </p>
+          </span>
+        ),
       },
     ],
   },

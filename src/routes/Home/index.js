@@ -40,7 +40,6 @@ export default class Home extends React.Component {
     super(props);
     this.state = {
       isMobile,
-      show: !location.port, // 如果不是 dva 2.0 请删除
     };
   }
 
@@ -49,6 +48,7 @@ export default class Home extends React.Component {
     enquireScreen((b) => {
       this.setState({ isMobile: !!b });
     });
+    // dva 2.0 样式在组件渲染之后动态加载，导致滚动组件不生效；线上不影响；
 
   }
 

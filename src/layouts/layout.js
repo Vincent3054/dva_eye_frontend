@@ -36,7 +36,14 @@ export default connect(
       collapsed: false,
       visibleLogin: false,
       visibleRegister: false,
+      k: 1,
     };
+
+    handleSelect = (e) => {
+      this.setState({
+          k: e.key,
+      })
+    }
 
     onCollapse = collapsed => {
       console.log(collapsed);
@@ -132,12 +139,12 @@ export default connect(
             <div className="logo" style={{ margin: '15px 15px 15px 30px' }}>
               <img width={150} height={30} src={imgL001} />
             </div>
-            <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline">
+            <Menu theme="dark" defaultSelectedKeys={[this.state.k]} mode="inline" onClick={this.handleSelect}>
               <Menu.Item key="1" icon={<DesktopOutlined />}>
                 <Link to="/">首頁</Link>
               </Menu.Item>
               <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                <Link to="/Detect">警示系統</Link>
+                <Link to="/Detect0">警示系統</Link>
               </Menu.Item>
               <Menu.Item key="3" icon={<FileOutlined />}>
                 <Link to="/Record">紀錄系統</Link>

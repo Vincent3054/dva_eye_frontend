@@ -64,7 +64,9 @@ export default connect(
         input_clear: true,
       });
     };
+    componentDidMount(){
 
+    }
     //antd裡面table組件 放東西進去
     //table 裡面只接受陣列物件
     render() {
@@ -78,7 +80,7 @@ export default connect(
                 values.password === teach.password)
           ) {
             if (values.username === user.username) {
-              this.props.history.push("/Detect");
+              this.props.history.push("/Detect0");
             }
             else {
               this.props.history.push("/Teacher");

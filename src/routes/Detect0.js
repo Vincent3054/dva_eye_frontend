@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Layouts from '../layouts/layout';
 import { connect } from 'dva';
-import { Form, Input, Select, Table, Space, Modal, Button, Empty, Card, Col, Row, Radio, Typography, Tag, Statistic } from 'antd';
+import { Form, Input, Select, Table, Space, Modal, Button, Empty, Card, Col, Row, Radio, Typography, Tag, Statistic,message } from 'antd';
 import { CaretRightOutlined, PauseOutlined, RedoOutlined } from '@ant-design/icons';
 import warning from "../Assets/warning.png";
 import test1 from "../Assets/test1.png";
@@ -163,6 +163,9 @@ export default connect(
         wrapperCol: {
           span: 13,
         },
+      };
+      const error = () => {
+        message.error('未偵測到網路攝影機(Webcam)');
       };
       const validateMessages = {
         required: "${label} is required!",
@@ -327,7 +330,7 @@ export default connect(
                       onClick={() => this.enterLoading(1)}
                       size="large"
                       style={{ marginRight: "10px" }}
-                      onClick={() => this.startTime()}
+                      onClick={() => this.startTime(),error}
                     >
                       Start
                     </Button>
